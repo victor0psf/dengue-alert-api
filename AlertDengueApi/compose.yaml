@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_alertdengue
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root # só para inicialização, não será usado
+      MYSQL_DATABASE: alertdengue_db
+      MYSQL_USER: usuario
+      MYSQL_PASSWORD: alertdenguemysql
+    ports:
+      - "3307:3306" # porta livre no host para acessar do PC
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alertdengue_api
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=mysql;Port=3306;Database=alertdengue_db;User=usuario;Password=alertdenguemysql;AllowPublicKeyRetrieval=True;SslMode=None;
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
+volumes:
+  mysql_data:
+
+networks:
+  backend:
+    driver: bridge

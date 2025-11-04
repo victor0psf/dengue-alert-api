@@ -1,0 +1,4 @@
+@AlertDengueApi_HostAddress = http://localhost:5255
+Accept: application/json
+
+###
