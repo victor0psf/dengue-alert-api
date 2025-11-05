@@ -8,7 +8,7 @@ namespace AlertDengueApi.Models
     public class DengueAlert
     {
         [Key]
-        public long Id { get; set; } // API numeric ID
+        public long Id { get; set; }
 
         [Required]
         [JsonPropertyName("data_ini_SE")]

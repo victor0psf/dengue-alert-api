@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlertDengueApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251104210831_InitialMigration")]
+    [Migration("20251105000925_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
