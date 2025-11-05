@@ -24,11 +24,9 @@ namespace AlertDengueApi.Migrations
 
             modelBuilder.Entity("AlertDengueApi.Models.DengueAlert", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("AccumulatedNotifications")
                         .HasColumnType("int")

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlertDengueApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251105000925_InitialMigration")]
+    [Migration("20251105002328_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -27,11 +27,9 @@ namespace AlertDengueApi.Migrations
 
             modelBuilder.Entity("AlertDengueApi.Models.DengueAlert", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("AccumulatedNotifications")
                         .HasColumnType("int")

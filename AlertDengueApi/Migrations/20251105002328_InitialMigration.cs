@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -19,8 +18,7 @@ namespace AlertDengueApi.Migrations
                 name: "DengueAlerts",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     StartOfEpiWeek = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     EpidemiologicalWeek = table.Column<int>(type: "int", nullable: false),
                     EpidemiologicalYear = table.Column<int>(type: "int", nullable: false),
