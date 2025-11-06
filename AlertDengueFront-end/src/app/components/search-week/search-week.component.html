@@ -3,21 +3,13 @@
 
   <div class="row mt-3">
     <div class="col-3">
-      <label>Semana (SE)</label>
+      <label for="inputSemana" class="form-label">Semana (SE)</label>
       <input
+        id="inputSemana"
         type="number"
         [(ngModel)]="week"
-        class="form-control"
-        placeholder="Ex: 42"
-      />
-    </div>
-    <div class="col-3">
-      <label>Ano</label>
-      <input
-        type="number"
-        [(ngModel)]="year"
-        class="form-control"
-        placeholder="Ex: 2025"
+        class="form-control input-week"
+        placeholder="Ex: 202542"
       />
     </div>
     <div class="col-3 d-flex align-items-end">
@@ -33,14 +25,21 @@
 
   <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
 
-  <div *ngIf="result" class="card mt-4">
+  <div *ngIf="result" class="card week-card mt-4">
     <div class="card-body">
-      <h5 class="card-title">
-        Semana {{ result.SE }} / {{ result.epidemiologicalYear }}
-      </h5>
-      <p><strong>Casos Estimados:</strong> {{ result.casos_est }}</p>
-      <p><strong>Casos Reportados:</strong> {{ result.casos }}</p>
-      <p><strong>Nível de Alerta:</strong> {{ result.nivel }}</p>
+      <h5 class="card-title">Semana Epidemiológica: {{ result.SE }}</h5>
+      <p class="card-text">
+        <strong>Casos Estimados:</strong> {{ result.casos_est }}
+      </p>
+      <p class="card-text">
+        <strong>Casos Reportados:</strong> {{ result.casos }}
+      </p>
+      <p class="card-text">
+        <strong>Nível de Alerta:</strong>
+        <span class="alert-level level-{{ result.nivel }}">
+          <span class="icon"></span> {{ result.nivel }}
+        </span>
+      </p>
       <small class="text-muted"
         >Versão Modelo: {{ result.versao_modelo }}</small
       >

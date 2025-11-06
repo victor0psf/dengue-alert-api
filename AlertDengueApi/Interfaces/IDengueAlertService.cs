@@ -9,7 +9,7 @@ namespace AlertDengueApi.Interfaces
     public interface IDengueAlertService
     {
         Task<IEnumerable<DengueAlert>> FetchAndSaveLastSixMonthsAsync();
-        Task<DengueAlert?> GetAlertByWeekAsync(int week, int year);
+        Task<DengueAlert?> GetAlertByWeekAsync(int week);
         Task<IEnumerable<DengueAlert>> GetAllAlertsAsync();
     }
 }

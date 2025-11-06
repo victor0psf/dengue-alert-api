@@ -17,8 +17,6 @@ namespace AlertDengueApi.Models
         [JsonPropertyName("SE")]
         public int EpidemiologicalWeek { get; set; }
 
-        public int EpidemiologicalYear { get; set; }
-
         [JsonPropertyName("casos_est")]
         public double EstimatedCases { get; set; }
 

@@ -8,8 +8,8 @@ namespace AlertDengueApi.Interfaces
 {
     public interface IDengueAlertRepository
     {
-        Task SaveAsync(DengueAlert alert);
-        Task<DengueAlert?> GetByWeekAsync(int week, int year);
+        Task SaveAsync(List<DengueAlert> alert);
+        Task<DengueAlert?> GetByWeekAsync(int week);
         Task<IEnumerable<DengueAlert>> GetAllAsync();
     }
 }

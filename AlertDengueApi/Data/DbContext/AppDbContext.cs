@@ -16,7 +16,7 @@ namespace AlertDengueApi.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DengueAlert>()
-                .HasIndex(da => new { da.EpidemiologicalWeek, da.EpidemiologicalYear })
+                .HasIndex(da => new { da.EpidemiologicalWeek })
                 .IsUnique();
         }
 

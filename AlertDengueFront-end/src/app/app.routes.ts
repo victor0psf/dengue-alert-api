@@ -6,6 +6,6 @@ import { SyncComponent } from './components/sync/sync.component';
 export const routes: Routes = [
   { path: '', component: LastThreeComponent },
   { path: 'search', component: SearchWeekComponent },
-  { path: 'sync', component: SyncComponent },
+  { path: 'alertas-6-meses', component: SyncComponent },
   { path: '**', redirectTo: '' },
 ];

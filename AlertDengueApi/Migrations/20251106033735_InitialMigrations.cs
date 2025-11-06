@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AlertDengueApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,6 @@ namespace AlertDengueApi.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     StartOfEpiWeek = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     EpidemiologicalWeek = table.Column<int>(type: "int", nullable: false),
-                    EpidemiologicalYear = table.Column<int>(type: "int", nullable: false),
                     EstimatedCases = table.Column<double>(type: "double", nullable: false),
                     EstimatedCasesMin = table.Column<double>(type: "double", nullable: false),
                     EstimatedCasesMax = table.Column<double>(type: "double", nullable: false),
@@ -51,9 +50,9 @@ namespace AlertDengueApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DengueAlerts_EpidemiologicalWeek_EpidemiologicalYear",
+                name: "IX_DengueAlerts_EpidemiologicalWeek",
                 table: "DengueAlerts",
-                columns: new[] { "EpidemiologicalWeek", "EpidemiologicalYear" },
+                column: "EpidemiologicalWeek",
                 unique: true);
         }
 

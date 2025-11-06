@@ -1,11 +1,242 @@
-.last-three {
-  padding: 12px;
+/* ===== Base ===== */
+body,
+h3,
+h4,
+p,
+table {
+  height: 100%;
+  width: 100%;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
 }
+
+.container {
+  margin: auto;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== Títulos ===== */
+h3,
+h4 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* ===== Botão Sync ===== */
+button.btn.btn-primary {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff6b6b, #f06595);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+button.btn.btn-primary:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+button.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== Mensagens ===== */
+.alert {
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.alert-success {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.alert-danger {
+  background-color: #f44336;
+  color: #ffffff;
+}
+
+/* ===== Cards ===== */
 .cards-row {
   display: flex;
-  gap: 12px;
+  gap: 1rem;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
-.week-card {
-  width: 300px;
+
+.card.week-card {
+  flex: 1 1 30%;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card.week-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-title {
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.card-text {
+  color: #cccccc;
+  font-size: 0.9rem;
+}
+
+.text-muted {
+  color: #888888;
+  font-size: 0.8rem;
+}
+
+/* ===== Alert levels (cores + ícones) ===== */
+.alert-level {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.alert-level .icon::before {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+}
+
+/* Verde */
+.level-1 {
+  background-color: #4caf50;
+}
+.level-1 .icon::before {
+  content: "✅";
+}
+
+/* Amarelo */
+.level-2 {
+  background-color: #ffeb3b;
+  color: #000;
+}
+.level-2 .icon::before {
+  content: "⚠️";
+}
+
+/* Laranja */
+.level-3 {
+  background-color: #ff9800;
+  color: #000;
+}
+.level-3 .icon::before {
+  content: "🟠";
+}
+
+/* Vermelho */
+.level-4 {
+  background-color: #f44336;
+}
+.level-4 .icon::before {
+  content: "❌";
+}
+
+/* ===== Tabela ===== */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+thead {
+  background-color: #2c2c2c;
+}
+
+thead th {
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.8rem;
+  text-align: left;
+  border-bottom: 2px solid #444;
+}
+
+tbody td {
+  padding: 0.7rem;
+  border-bottom: 1px solid #2c2c2c;
+  color: #e0e0e0;
+}
+
+tbody tr:hover {
+  background-color: #333;
+  transition: background-color 0.3s ease;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+  .cards-row {
+    flex-direction: column;
+  }
+
+  .table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    display: none;
+  }
+
+  tbody tr {
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #333;
+  }
+
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0.8rem;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #bbbbbb;
+  }
 }

@@ -13,20 +13,31 @@ export class ApiService {
 
   constructor(private readonly http: HttpClient) {}
 
-  // GET /api/dengue  (returns all)
+  /**
+   * GET /api/dengue/get-all
+   * Retorna todos os alertas diretamente como array
+   */
   getAllAlerts(): Observable<DengueAlert[]> {
-    return this.http.get<DengueAlert[]>(`${this.baseUrl}/all`);
+    return this.http.get<DengueAlert[]>(`${this.baseUrl}/get-all`);
   }
 
-  // GET /api/dengue/sync  (synchronize remote -> db)
-  syncAlerts(): Observable<{ message: string; total?: number; data?: any }> {
-    return this.http.get<{ message: string; total?: number; data?: any }>(
-      `${this.baseUrl}/sync`
+  /**
+   * POST /api/dengue/sync
+   * Sincroniza alertas e retorna os alertas sincronizados
+   */
+  syncAlerts(): Observable<DengueAlert[]> {
+    return this.http.post<DengueAlert[]>(
+      `${this.baseUrl}/sync`,
+      {}, // corpo vazio
+      { responseType: 'json' } // garante JSON
     );
   }
 
-  // GET /api/dengue/{week}/{year}
-  getAlertByWeekAndYear(week: number, year: number) {
-    return this.http.get<DengueAlert>(`${this.baseUrl}/${week}/${year}`);
+  /**
+   * GET /api/dengue/{week}
+   * Retorna alerta por semana específica
+   */
+  getAlertByWeek(week: number): Observable<DengueAlert> {
+    return this.http.get<DengueAlert>(`${this.baseUrl}/${week}`);
   }
 }

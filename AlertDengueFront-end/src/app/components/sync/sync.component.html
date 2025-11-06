@@ -1,41 +1,49 @@
-<h2>Sync Dengue Alerts</h2>
+<div class="container sync-dengue">
+  <h3>Dengue Alerts</h3>
 
-<button (click)="sync()" [disabled]="loading">Start Sync</button>
+  <div class="sync-container">
+    <button class="btn btn-primary" (click)="sync()" [disabled]="loading">
+      {{
+        loading ? "Carregando últimos 6 meses..." : "Mostrar últimos 6 meses"
+      }}
+    </button>
 
-<div *ngIf="loading">Sincronizando...</div>
-<div *ngIf="message" class="alert alert-success">
-  {{ message }} ({{ count }})
+    <div *ngIf="message" class="alert alert-success">
+      {{ message }} ({{ count }})
+    </div>
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+    <hr />
+
+    <table *ngIf="alerts.length" class="table table-striped mt-3">
+      <thead>
+        <tr>
+          <th>Semana epidemiológica (SE)</th>
+          <th>Casos estimados</th>
+          <th>Min</th>
+          <th>Max</th>
+          <th>Casos notificados</th>
+          <th>Nível de alerta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of alerts">
+          <td>{{ a.SE }}</td>
+          <td>{{ a.casos_est }}</td>
+          <td>{{ a.casos_est_min }}</td>
+          <td>{{ a.casos_est_max }}</td>
+          <td>{{ a.casos }}</td>
+          <td>
+            <span class="alert-level level-{{ a.nivel }}">
+              <span class="icon"></span> {{ a.nivel }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!alerts.length && !loading" class="text-muted">
+      Nenhum dado encontrado.
+    </div>
+  </div>
 </div>
-<div *ngIf="error" class="alert alert-danger">{{ error }}</div>
-
-<hr />
-
-<!-- Mostrar todos os alertas recebidos -->
-<table *ngIf="alerts.length" class="table table-striped mt-3">
-  <thead>
-    <tr>
-      <th>Semana (SE)</th>
-      <th>Ano</th>
-      <th>Estimado</th>
-      <th>Min</th>
-      <th>Max</th>
-      <th>Reportado</th>
-      <th>Nível</th>
-      <th>Modelo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let a of alerts">
-      <td>{{ a.SE }}</td>
-      <td>{{ a.epidemiologicalYear }}</td>
-      <td>{{ a.casos_est }}</td>
-      <td>{{ a.casos_est_min }}</td>
-      <td>{{ a.casos_est_max }}</td>
-      <td>{{ a.casos }}</td>
-      <td>{{ a.nivel }}</td>
-      <td>{{ a.versao_modelo }}</td>
-    </tr>
-  </tbody>
-</table>
-
-<p *ngIf="!alerts.length && !loading">Nenhum dado encontrado.</p>

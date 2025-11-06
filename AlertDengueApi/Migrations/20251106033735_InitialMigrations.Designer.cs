@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlertDengueApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251105002328_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20251106033735_InitialMigrations")]
+    partial class InitialMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,9 +42,6 @@ namespace AlertDengueApi.Migrations
                     b.Property<int>("EpidemiologicalWeek")
                         .HasColumnType("int")
                         .HasAnnotation("Relational:JsonPropertyName", "SE");
-
-                    b.Property<int>("EpidemiologicalYear")
-                        .HasColumnType("int");
 
                     b.Property<double>("EstimatedCases")
                         .HasColumnType("double")
@@ -124,7 +121,7 @@ namespace AlertDengueApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EpidemiologicalWeek", "EpidemiologicalYear")
+                    b.HasIndex("EpidemiologicalWeek")
                         .IsUnique();
 
                     b.ToTable("DengueAlerts");

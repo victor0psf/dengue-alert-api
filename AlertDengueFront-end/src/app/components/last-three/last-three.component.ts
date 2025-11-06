@@ -14,7 +14,11 @@ export class LastThreeComponent implements OnInit {
   alerts: DengueAlert[] = [];
   lastThree: DengueAlert[] = [];
   error = '';
+  message = '';
   Math = Math;
+
+  // flag para impedir múltiplas sincronizações
+  private alreadySynced = false;
 
   constructor(private readonly api: ApiService) {}
 
@@ -22,54 +26,87 @@ export class LastThreeComponent implements OnInit {
     this.load();
   }
 
+  /** Carrega todos os alertas e calcula as últimas 3 semanas */
   load(): void {
     this.loading = true;
     this.error = '';
+    this.message = '';
+
     this.api.getAllAlerts().subscribe({
       next: (arr) => {
         this.alerts = arr || [];
-        // Normalize: compute Year and Week number for sorting
-        const normalized = this.alerts.map((a) => {
-          const weekNum = a.SE ?? 0;
-          // If SE is encoded as 202542 (year+week) try to parse
-          let year = a.epidemiologicalYear ?? 0;
-          let week = 0;
-          if (!year && weekNum > 1000) {
-            // e.g. 202542 => year=2025, week=42
-            year = Math.floor(weekNum / 100);
-            week = weekNum % 100;
-          } else {
-            week = weekNum;
-          }
-          return { ...a, _year: year, _week: week };
-        });
-
-        // sort by year/week desc
-        normalized.sort((x, y) => {
-          if (x._year !== y._year) return y._year - x._year;
-          return y._week - x._week;
-        });
-
-        // pick unique (week+year) and take first 3
-        const picked: DengueAlert[] = [];
-        const seen = new Set<string>();
-        for (const n of normalized) {
-          const key = `${n._year}-${n._week}`;
-          if (!seen.has(key)) {
-            seen.add(key);
-            picked.push(n);
-            if (picked.length === 3) break;
-          }
-        }
-
-        this.lastThree = picked;
+        this.processLastThree();
         this.loading = false;
       },
       error: (err) => {
         console.error(err);
-        this.error = 'Failed to load alerts';
+        this.error = 'Falha ao carregar alertas';
         this.loading = false;
       },
     });
+  }
+
+  /** Sincroniza os alertas com o backend e atualiza a lista */
+  sync(): void {
+    // impede múltiplas chamadas
+    if (this.alreadySynced) {
+      this.message = 'Já fui sincronizado';
+      setTimeout(() => (this.message = ''), 3000); // some depois de 3s
+      return; // MUITO IMPORTANTE: não chamar a API novamente
+    }
+
+    this.loading = true;
+    this.error = '';
+    this.message = '';
+
+    this.api.syncAlerts().subscribe({
+      next: (res) => {
+        this.alerts = res || [];
+        this.processLastThree();
+        this.message = `Sincronização concluída com ${this.alerts.length} alertas`;
+        this.alreadySynced = true; // marca que já sincronizou
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.error = 'Falha ao sincronizar alertas';
+        this.loading = false;
+      },
+    });
+  }
+
+  /** Processa as últimas 3 semanas a partir do array de alertas */
+  private processLastThree(): void {
+    const normalized = this.alerts.map((a) => {
+      const weekNum = a.SE ?? 0;
+      let year = a.epidemiologicalYear ?? 0;
+      let week = 0;
+
+      if (!year && weekNum > 1000) {
+        year = Math.floor(weekNum / 100);
+        week = weekNum % 100;
+      } else {
+        week = weekNum;
+      }
+
+      return { ...a, _year: year, _week: week };
+    });
+
+    normalized.sort((x, y) =>
+      x._year !== y._year ? y._year - x._year : y._week - x._week
+    );
+
+    const picked: DengueAlert[] = [];
+    const seen = new Set<string>();
+    for (const n of normalized) {
+      const key = `${n._year}-${n._week}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        picked.push(n);
+        if (picked.length === 3) break;
+      }
+    }
+
+    this.lastThree = picked;
   }
 }

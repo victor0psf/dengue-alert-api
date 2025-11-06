@@ -13,7 +13,6 @@ import { ApiService } from '../../services/api.service';
 })
 export class SearchWeekComponent {
   week!: number;
-  year!: number;
   loading = false;
   error = '';
   result?: DengueAlert;
@@ -21,8 +20,10 @@ export class SearchWeekComponent {
   constructor(private readonly api: ApiService) {}
 
   search() {
-    if (!this.week || !this.year) {
-      this.error = 'Informe Semana e Ano.';
+    // Validação
+    if (!this.week || this.week <= 0) {
+      this.error = 'Informe uma Semana válida.';
+      this.result = undefined;
       return;
     }
 
@@ -30,14 +31,14 @@ export class SearchWeekComponent {
     this.error = '';
     this.result = undefined;
 
-    this.api.getAlertByWeekAndYear(this.week, this.year).subscribe({
+    this.api.getAlertByWeek(this.week).subscribe({
       next: (res) => {
         this.result = res;
         this.loading = false;
       },
       error: (err) => {
         console.error(err);
-        this.error = 'Nenhum dado encontrado para essa semana/ano.';
+        this.error = 'Nenhum dado encontrado para esta semana.';
         this.loading = false;
       },
     });

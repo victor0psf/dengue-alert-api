@@ -15,7 +15,7 @@ export class SyncComponent {
   message = '';
   count = 0;
   error = '';
-  alerts: DengueAlert[] = []; // array para armazenar os alertas
+  alerts: DengueAlert[] = [];
 
   constructor(private readonly api: ApiService) {}
 
@@ -26,20 +26,13 @@ export class SyncComponent {
     this.alerts = [];
 
     try {
-      const res = await lastValueFrom(this.api.syncAlerts());
-      console.log('sync result:', res); // <--- verifique o console para saber o formato exato
+      // syncAlerts agora retorna diretamente um array de DengueAlert
+      const res = await lastValueFrom(this.api.getAllAlerts());
+      console.log('sync result:', res);
 
-      // Ajuste automático: se res.data existe e é array, use; senão se res é array, use
-      if (res?.data && Array.isArray(res.data)) {
-        this.alerts = res.data;
-      } else if (Array.isArray(res)) {
-        this.alerts = res;
-      } else {
-        this.alerts = [];
-      }
-
-      this.message = res?.message ?? 'Sync completed';
-      this.count = this.alerts.length; // total de alertas carregados
+      this.alerts = res || [];
+      this.message = `Sincronização concluída com ${this.alerts.length} alertas`;
+      this.count = this.alerts.length;
     } catch (err: any) {
       console.error(err);
       this.error = err?.message || 'Falha ao sincronizar';

@@ -40,9 +40,6 @@ namespace AlertDengueApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("Relational:JsonPropertyName", "SE");
 
-                    b.Property<int>("EpidemiologicalYear")
-                        .HasColumnType("int");
-
                     b.Property<double>("EstimatedCases")
                         .HasColumnType("double")
                         .HasAnnotation("Relational:JsonPropertyName", "casos_est");
@@ -121,7 +118,7 @@ namespace AlertDengueApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EpidemiologicalWeek", "EpidemiologicalYear")
+                    b.HasIndex("EpidemiologicalWeek")
                         .IsUnique();
 
                     b.ToTable("DengueAlerts");

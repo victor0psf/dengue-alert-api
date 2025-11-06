@@ -52,14 +52,9 @@ namespace AlertDengueApi.Services
 
                 var alerts = JsonSerializer.Deserialize<List<DengueAlert>>(json) ?? new List<DengueAlert>();
 
-                foreach (var alert in alerts)
-                {
-                    var exists = await _repository.GetByWeekAsync(alert.EpidemiologicalWeek, alert.EpidemiologicalYear);
-                    if (exists == null)
-                        await _repository.SaveAsync(alert);
-                }
-
+                await _repository.SaveAsync(alerts);
                 return alerts;
+
             }
             catch (Exception ex)
             {
@@ -67,9 +62,9 @@ namespace AlertDengueApi.Services
             }
         }
 
-        public async Task<DengueAlert?> GetAlertByWeekAsync(int epidemiologicalWeek, int epidemiologicalYear)
+        public async Task<DengueAlert?> GetAlertByWeekAsync(int epidemiologicalWeek)
         {
-            return await _repository.GetByWeekAsync(epidemiologicalWeek, epidemiologicalYear);
+            return await _repository.GetByWeekAsync(epidemiologicalWeek);
         }
 
         public async Task<IEnumerable<DengueAlert>> GetAllAlertsAsync()

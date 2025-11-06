@@ -24,7 +24,7 @@ namespace AlertDengueApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet("sync")]
+        [HttpPost("sync")]
         public async Task<IActionResult> SyncDengueAlerts()
         {
             try
@@ -46,12 +46,12 @@ namespace AlertDengueApi.Controllers
             }
         }
 
-        [HttpGet("{week}/{year}")]
-        public async Task<IActionResult> GetAlertByWeekAndYear(int week, int year)
+        [HttpGet("{week}")]
+        public async Task<IActionResult> GetAlertByWeek(int week)
         {
             try
             {
-                var alert = await _dengueAlertService.GetAlertByWeekAsync(week, year);
+                var alert = await _dengueAlertService.GetAlertByWeekAsync(week);
                 if (alert == null)
                 {
                     return NotFound();
@@ -66,7 +66,7 @@ namespace AlertDengueApi.Controllers
             }
         }
 
-        [HttpGet("all")]
+        [HttpGet("get-all")]
         public async Task<IActionResult> GetAllAlerts()
         {
             try
