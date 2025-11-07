@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { DengueAlert } from '../../models/dengue-alert.model';
 import { ApiService } from '../../services/api.service';
 
@@ -7,7 +8,7 @@ import { ApiService } from '../../services/api.service';
   selector: 'app-last-three',
   templateUrl: './last-three.component.html',
   styleUrls: ['./last-three.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
 })
 export class LastThreeComponent implements OnInit {
   loading = false;

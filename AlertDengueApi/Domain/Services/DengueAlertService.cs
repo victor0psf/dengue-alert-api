@@ -62,9 +62,9 @@ namespace AlertDengueApi.Services
             }
         }
 
-        public async Task<DengueAlert?> GetAlertByWeekAsync(int epidemiologicalWeek)
+        public async Task<DengueAlert?> GetAlertByWeekAsync(int week)
         {
-            return await _repository.GetByWeekAsync(epidemiologicalWeek);
+            return await _repository.GetByWeekAsync(week);
         }
 
         public async Task<IEnumerable<DengueAlert>> GetAllAlertsAsync()

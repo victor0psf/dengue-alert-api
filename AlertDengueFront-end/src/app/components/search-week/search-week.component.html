@@ -21,6 +21,8 @@
         {{ loading ? "Buscando..." : "Buscar" }}
       </button>
     </div>
+
+    <button routerLink="/" class="btn-back">← Voltar</button>
   </div>
 
   <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
@@ -32,13 +34,16 @@
         <strong>Casos Estimados:</strong> {{ result.casos_est }}
       </p>
       <p class="card-text">
-        <strong>Casos Reportados:</strong> {{ result.casos }}
+        <strong>Casos Notificados:</strong> {{ result.casos }}
       </p>
       <p class="card-text">
         <strong>Nível de Alerta:</strong>
         <span class="alert-level level-{{ result.nivel }}">
           <span class="icon"></span> {{ result.nivel }}
         </span>
+      </p>
+      <p class="card-text">
+        <strong>Casos Acumulados:</strong> {{ result.notif_accum_year }}
       </p>
       <small class="text-muted"
         >Versão Modelo: {{ result.versao_modelo }}</small

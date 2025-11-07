@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { DengueAlert } from '../../models/dengue-alert.model';
 import { ApiService } from '../../services/api.service';
@@ -8,7 +9,7 @@ import { ApiService } from '../../services/api.service';
   selector: 'app-sync',
   templateUrl: './sync.component.html',
   styleUrls: ['./sync.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
 })
 export class SyncComponent {
   loading = false;

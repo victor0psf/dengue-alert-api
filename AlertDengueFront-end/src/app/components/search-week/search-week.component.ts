@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { DengueAlert } from '../../models/dengue-alert.model';
 import { ApiService } from '../../services/api.service';
 
@@ -9,7 +10,7 @@ import { ApiService } from '../../services/api.service';
   selector: 'app-search-week',
   templateUrl: './search-week.component.html',
   styleUrls: ['./search-week.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
 })
 export class SearchWeekComponent {
   week!: number;

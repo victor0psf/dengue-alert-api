@@ -7,36 +7,24 @@ import { DengueAlert } from '../models/dengue-alert.model';
   providedIn: 'root',
 })
 export class ApiService {
-  // ajuste aqui se a API estiver em outro host/porta (no Docker, porta 8080)
+  // quando estiver rodando no Docker, usar o host "api"
   private readonly baseUrl =
     (window as any).__env?.API_BASE_URL || 'http://localhost:8080/api/dengue';
 
   constructor(private readonly http: HttpClient) {}
 
-  /**
-   * GET /api/dengue/get-all
-   * Retorna todos os alertas diretamente como array
-   */
   getAllAlerts(): Observable<DengueAlert[]> {
     return this.http.get<DengueAlert[]>(`${this.baseUrl}/get-all`);
   }
 
-  /**
-   * POST /api/dengue/sync
-   * Sincroniza alertas e retorna os alertas sincronizados
-   */
   syncAlerts(): Observable<DengueAlert[]> {
     return this.http.post<DengueAlert[]>(
       `${this.baseUrl}/sync`,
-      {}, // corpo vazio
-      { responseType: 'json' } // garante JSON
+      {},
+      { responseType: 'json' }
     );
   }
 
-  /**
-   * GET /api/dengue/{week}
-   * Retorna alerta por semana específica
-   */
   getAlertByWeek(week: number): Observable<DengueAlert> {
     return this.http.get<DengueAlert>(`${this.baseUrl}/${week}`);
   }

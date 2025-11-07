@@ -1,4 +1,4 @@
-<div class="container sync-dengue">
+<div class="container-fluid sync-dengue">
   <h3>Dengue Alerts</h3>
 
   <div class="sync-container">
@@ -7,6 +7,8 @@
         loading ? "Carregando últimos 6 meses..." : "Mostrar últimos 6 meses"
       }}
     </button>
+
+    <button routerLink="/" class="btn-back">← Voltar</button>
 
     <div *ngIf="message" class="alert alert-success">
       {{ message }} ({{ count }})

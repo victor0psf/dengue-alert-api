@@ -13,8 +13,7 @@ table {
   background-color: #121212;
 }
 
-.container {
-  margin: auto;
+.container-fluid {
   padding: 1rem;
   background-color: #1e1e1e;
   border-radius: 12px;
@@ -56,6 +55,33 @@ button.btn.btn-primary:hover:not(:disabled) {
 button.btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.navigation-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.btn-nav {
+  height: 3.5rem;
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #150550, #0951d6);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-nav:hover {
+  background-color: #004bbd;
 }
 
 /* ===== Mensagens ===== */
