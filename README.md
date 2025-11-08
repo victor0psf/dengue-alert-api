@@ -50,5 +50,5 @@ Se não tiver dotnet-ef instalado, use dotnet tool install --global dotnet-ef.
 cd AlertDengueFront-end
  npm install
 npm run start
-Servirá em http://localhost:4200/.
 ```
+Servirá em http://localhost:4200/.
