@@ -5,7 +5,7 @@ Aplicação full-stack (ASP.NET Core + Angular) para consultar, armazenar e visu
 ## Visão geral
 
 - **Propósito**: manter um histórico local (MySQL) dos últimos 6 meses de alertas e oferecer UI simples para sincronizar dados, listar as últimas semanas e buscar por semana epidemiológica específica.
-- **Backend**: `AlertDengueApi` expõe REST API (`/api/dengue`) que consome o serviço externo e persiste os registros.
+- **Backend**: `AlertDengueApi` expõe REST API (`/api/dengue`) que consome o serviço externo e persiste os registros. O projeto foi desenvolvido com base na modelagem DDD (Domain-Driven Design), com camadas bem definidas, além da aplicação de boas práticas de desenvolvimento, como separação de responsabilidades e injeção de dependências.
 - **Frontend**: `AlertDengueFront-end` (Angular 20) consome a API interna para exibir dashboards rápidos.
 
 ## Arquitetura e fluxo
@@ -38,16 +38,17 @@ Aplicação full-stack (ASP.NET Core + Angular) para consultar, armazenar e visu
 1. **Banco de dados e API**
    ```powershell
    cd AlertDengueApi
+   dotnet restore
    docker compose up -d
+   dotnet ef database update
 Sobe um container mysql_alertdengue expondo 3307->3306.
 Usuário padrão: usuario / alertdenguemysql (definido em appsettings.json).
-
-cd AlertDengueApi
-dotnet restore
-dotnet ef database update
 Se não tiver dotnet-ef instalado, use dotnet tool install --global dotnet-ef.
 
+## Configuração do frontend
+   ```powershell
 cd AlertDengueFront-end
-npm install
+ npm install
 npm run start
-Servirá em http://localhost:4200.
+Servirá em http://localhost:4200/.
+```
